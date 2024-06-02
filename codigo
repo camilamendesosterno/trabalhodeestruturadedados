@@ -94,3 +94,78 @@ MusicNode* prev_song(CircularDoublyLinkedList* list) {
 if (list->current) list->current = list->current->prev; // Retrocede para o nó anterior na lista
 return list->current; // Retorna o nó atual
 }
+// Função para exibir o menu da playlist
+void display_playlist_menu() {
+printf("\n================= PLAYLIST MANAGER =================\n");
+printf("| 1. Exibir a playlist |\n");
+printf("| 2. Adicionar uma música à playlist |\n");
+printf("| 3. Remover uma música da playlist |\n");
+printf("| 4. Avançar para a próxima música |\n");
+printf("| 5. Retornar à musica anterior |\n");
+printf("| 0. Sair |\n");
+printf("======================================================\n");
+printf("\nEscolha uma opção: ");
+}
+// Função principal
+int main() {
+CircularDoublyLinkedList* playlist = create_music_list(); // Criando uma nova lista de reprodução de músicas
+int choice; // Variável para armazenar a escolha do usuário
+char artist[100], song[100]; // Variáveis para armazenar o nome do artista e o título da música
+printf("\n==================== GERENCIADOR DE PLAYLIST ====================\n");
+printf("Este programa permite gerenciar uma playlist de músicas.\n");
+do {
+    display_playlist_menu();  // Exibe o menu da playlist
+    scanf("%d", &choice);  // Lê a escolha do usuário
+    getchar(); // Limpa o buffer do teclado
+    switch (choice) {
+        case 1:
+            display_playlist(playlist);  // Exibe a lista de reprodução de músicas
+            break;
+        case 2:
+            printf("Insira o nome do artista: ");
+            fgets(artist, sizeof(artist), stdin);  // Lê o nome do artista
+            strtok(artist, "\n"); // Remove a nova linha
+            printf("Insira o nome da música: ");
+            fgets(song, sizeof(song), stdin);  // Lê o título da música
+            strtok(song, "\n"); // Remove a nova linha
+            append(playlist, artist, song);  // Adiciona a música à playlist
+            printf("Nova música adicionada com sucesso.\n");
+            break;
+        case 3:
+            printf("Insira o nome da música a ser removida: ");
+            fgets(song, sizeof(song), stdin);  // Lê o título da música a ser removida
+            strtok(song, "\n"); // Remove a nova linha
+            if (remove_song(playlist, song)) {
+                printf("Música removida com sucesso.\n");
+            } else {
+                printf("Essa música não foi encontrada na playlist.\n");
+            }
+            break;
+        case 4:
+            if (next_song(playlist)) {
+                printf("Tocando agora - Artista: %s, Música: %s\n", playlist->current->artist, playlist->current->song);
+            } else {
+                printf("A playlist está vazia.\n");
+            }
+            break;
+        case 5:
+            if (prev_song(playlist)) {
+                printf("Voltando para - Artista: %s, Música: %s\n", playlist->current->artist, playlist->current->song);
+            } else {
+                printf("Não há música anterior na playlist.\n");
+            }
+            break;
+        case 0:
+            printf("Encerrando o gerenciador de playlist.\n");
+            break;
+        default:
+            printf("Opção inválida. Por favor, escolha novamente.\n");
+    }
+} while (choice != 0);  // Loop continua até que o usuário escolha sair
+// Libera a memória alocada para a lista de reprodução de músicas
+while (playlist->head) {
+    remove_song(playlist, playlist->head->song);
+}
+free(playlist);
+return 0;  // Retorna 0 para indicar que o programa foi executado com sucesso
+}
