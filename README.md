@@ -33,7 +33,3 @@ O Playlist Manager é um programa em C que coloca o controle da sua playlist de 
 
 - **Relate Problemas:** Se encontrar algum bug ou problema, sinta-se à vontade para reportá-lo na seção de issues do GitHub.
 - **Melhorias e Novas Funcionalidades:** Contribuições são bem-vindas! Faça um fork do repositório, implemente melhorias ou adicione novas funcionalidades e envie um pull request.
-
-## Licença
-
-Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT) - consulte o arquivo `LICENSE` para obter detalhes.
