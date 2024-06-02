@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// Definição da estrutura do nó da lista de reprodução de músicas
+typedef struct MusicNode {
+    char artist[262];  // Nome do artista
+    char song[262];    // Título da música
+    struct MusicNode* next;  // Ponteiro para o próximo nó
+    struct MusicNode* prev;  // Ponteiro para o nó anterior
+} MusicNode;
