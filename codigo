@@ -29,3 +29,18 @@ CircularDoublyLinkedList* create_music_list() {
     list->size = 0;  // Inicializando o tamanho da lista como 0
     return list;  // Retornando a lista criada
 }
+// Função para adicionar uma nova música à lista de reprodução
+void append(CircularDoublyLinkedList* list, const char* artist, const char* song) {
+    MusicNode* new_node = create_music_node(artist, song); // Criando um novo nó para a música
+    if (list->size == 0) {  // Verificando se a lista está vazia
+        list->head = list->current = new_node;  // Se estiver vazia, o novo nó será o primeiro e o atual
+        new_node->next = new_node->prev = new_node;  // O novo nó aponta para ele mesmo em ambas as direções
+    } else {
+        MusicNode* tail = list->head->prev;  // Obtendo o último nó da lista
+        tail->next = new_node;  // O próximo nó do último nó aponta para o novo nó
+        new_node->prev = tail;   // O nó anterior ao novo nó é o último nó
+        new_node->next = list->head;  // O próximo nó após o novo nó é o primeiro nó da lista
+        list->head->prev = new_node;   // O nó anterior ao primeiro nó da lista é o novo nó
+    }
+    list->size++;  // Incrementando o tamanho da lista
+}
