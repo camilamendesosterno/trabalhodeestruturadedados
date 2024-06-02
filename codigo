@@ -8,3 +8,9 @@ typedef struct MusicNode {
     struct MusicNode* next;  // Ponteiro para o próximo nó
     struct MusicNode* prev;  // Ponteiro para o nó anterior
 } MusicNode;
+// Definição da lista circular duplamente encadeada para armazenar as músicas
+typedef struct {
+    MusicNode* head;    // Ponteiro para o primeiro nó da lista
+    MusicNode* current; // Ponteiro para o nó atual na reprodução
+    int size;           // Tamanho atual da lista de músicas
+} CircularDoublyLinkedList;
