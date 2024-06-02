@@ -44,3 +44,27 @@ void append(CircularDoublyLinkedList* list, const char* artist, const char* song
     }
     list->size++;  // Incrementando o tamanho da lista
 }
+// Função para exibir a lista de reprodução de músicas
+void display_playlist(CircularDoublyLinkedList* list) {
+    if (list->size == 0) {  // Verificando se a lista está vazia
+        printf("A playlist está vazia.\n");
+        return;
+    }
+    MusicNode* temp = list->head;  // Obtendo o primeiro nó da lista
+    printf("\n===== PLAYLIST =====\n");
+    for (int i = 0; i < list->size; i++) {
+        printf("Artista: %s, Música: %s\n", temp->artist, temp->song); // Exibindo o artista e o título da música
+        temp = temp->next;  // Avançando para o próximo nó na lista
+    }
+    printf("====================\n");
+}
+// Função para buscar uma música na lista de reprodução
+MusicNode* find_song(CircularDoublyLinkedList* list, const char* song) {
+    if (list->size == 0) return NULL;  // Se a lista estiver vazia, retorna NULL
+    MusicNode* temp = list->head;  // Obtendo o primeiro nó da lista
+    for (int i = 0; i < list->size; i++) {
+        if (strcmp(temp->song, song) == 0) return temp;  // Se o título da música for encontrado, retorna o nó
+        temp = temp->next;  // Avançando para o próximo nó na lista
+    }
+    return NULL;  // Se a música não for encontrada, retorna NULL
+}
