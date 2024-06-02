@@ -68,3 +68,29 @@ MusicNode* find_song(CircularDoublyLinkedList* list, const char* song) {
     }
     return NULL;  // Se a música não for encontrada, retorna NULL
 }
+// Função para remover uma música da playlist
+int remove_song(CircularDoublyLinkedList* list, const char* song) {
+    MusicNode* node = find_song(list, song);  // Buscando o nó correspondente à música na lista
+    if (!node) return 0;  // Se o nó não for encontrado, retorna 0
+    if (list->size == 1) {  // Se a lista tiver apenas um nó
+        free(node);  // Libera a memória do nó
+        list->head = NULL;  // Define o ponteiro head como NULL
+    } else {
+        node->prev->next = node->next;  // Atualiza o ponteiro next do nó anterior ao nó a ser removido
+        node->next->prev = node->prev;  // Atualiza o ponteiro prev do nó seguinte ao nó a ser removido
+        if (node == list->head) list->head = node->next;  // Se o nó a ser removido for o primeiro, atualiza o ponteiro head
+        free(node);  // Libera a memória do nó removido
+    }
+list->size--;  // Decrementa o tamanho da lista
+return 1;  // Retorna 1 para indicar que a música foi removida com sucesso
+}
+// Função para avançar para a próxima música na playlist
+MusicNode* next_song(CircularDoublyLinkedList* list) {
+if (list->current) list->current = list->current->next; // Avança para o próximo nó na lista
+return list->current; // Retorna o nó atual
+}
+// Função para retornar à música anterior na playlist
+MusicNode* prev_song(CircularDoublyLinkedList* list) {
+if (list->current) list->current = list->current->prev; // Retrocede para o nó anterior na lista
+return list->current; // Retorna o nó atual
+}
