@@ -14,3 +14,18 @@ typedef struct {
     MusicNode* current; // Ponteiro para o nó atual na reprodução
     int size;           // Tamanho atual da lista de músicas
 } CircularDoublyLinkedList;
+// Função para criar um novo nó na lista de músicas
+MusicNode* create_music_node(const char* artist, const char* song) {
+    MusicNode* new_node = (MusicNode*)malloc(sizeof(MusicNode)); // Alocando memória para o novo nó
+    strcpy(new_node->artist, artist);  // Copiando o nome do artista para o novo nó
+    strcpy(new_node->song, song);      // Copiando o título da música para o novo nó
+    new_node->next = new_node->prev = NULL;  // Inicializando os ponteiros next e prev como NULL
+    return new_node;  // Retornando o novo nó criado
+}
+// Função para criar uma nova lista de músicas
+CircularDoublyLinkedList* create_music_list() {
+    CircularDoublyLinkedList* list = (CircularDoublyLinkedList*)malloc(sizeof(CircularDoublyLinkedList)); // Alocando memória para a lista
+    list->head = list->current = NULL;  // Inicializando os ponteiros head e current como NULL
+    list->size = 0;  // Inicializando o tamanho da lista como 0
+    return list;  // Retornando a lista criada
+}
